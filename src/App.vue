@@ -2,7 +2,7 @@
   <v-app>
     <v-card color="grey lighten-4" flat tile>
       <v-toolbar>
-        <v-app-bar-nav-icon @click="toggleSideMenu"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="toggleSideNav"></v-app-bar-nav-icon>
         <v-toolbar-title>資産管理ツール</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import SideNav from './components/Sidenav.vue';
 
 export default {
@@ -27,9 +28,7 @@ export default {
     //
   }),
   methods: {
-    toggleSideMenu() {
-      this.$store.dispatch('toggleSideNav');
-    },
+    ...mapActions(['toggleSideNav']),
   },
 };
 </script>

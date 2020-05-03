@@ -1,5 +1,5 @@
 <template>
-  <v-sheet height="400" class="overflow-hidden" style="position: relative;">
+  <v-container fluid>
     <v-navigation-drawer v-model="$store.state.drawer" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
@@ -27,7 +27,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-  </v-sheet>
+  </v-container>
 </template>
 
 <script>

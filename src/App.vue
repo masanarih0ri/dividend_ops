@@ -7,8 +7,9 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-card>
+    <SideNav />
     <v-content>
-      <SideNav />
+      <router-view />
     </v-content>
   </v-app>
 </template>

@@ -6,12 +6,9 @@
 
 <script>
 // @ is an alias to /src
-import Stocks from "@/components/Stocks.vue";
 
 export default {
-  name: "Home",
-  components: {
-    Stocks
-  }
+  name: 'Home',
+  components: {},
 };
 </script>

@@ -7,15 +7,21 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </v-card>
-    <v-content></v-content>
+    <v-content>
+      <SideNav />
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import SideNav from './components/Sidenav.vue';
+
 export default {
   name: 'App',
 
-  components: {},
+  components: {
+    SideNav,
+  },
 
   data: () => ({
     //

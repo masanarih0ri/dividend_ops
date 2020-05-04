@@ -49,5 +49,10 @@ export default new Vuex.Store({
       commit('deleteLoginUser');
     },
   },
+  getters: {
+    // gettersにはstateが自動的に渡される
+    userName: (state) => (state.loginUser ? state.loginUser.displayName : ''),
+    photoURL: (state) => (state.loginUser ? state.loginUser.photoURL : ''),
+  },
   modules: {},
 });

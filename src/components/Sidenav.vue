@@ -3,13 +3,11 @@
     <v-navigation-drawer v-model="$store.state.drawer" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img
-            src="https://avatars2.githubusercontent.com/u/20497053?s=400&u=167ec6c698d580978c55920da8e921f7dd891346&v=4"
-          ></v-img>
+          <v-img :src="photoURL"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Masanari Hori</v-list-item-title>
+          <v-list-item-title>{{ userName }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -36,6 +34,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -44,6 +43,10 @@ export default {
         { title: '銘柄一覧', icon: 'mdi-menu', link: { name: 'Stocks' } },
       ],
     };
+  },
+  computed: {
+    // mapGettersはcomputedで呼び出す
+    ...mapGetters(['userName', 'photoURL']),
   },
 };
 </script>

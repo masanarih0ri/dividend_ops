@@ -5,7 +5,7 @@
         <v-app-bar-nav-icon @click.stop="toggleSideNav"></v-app-bar-nav-icon>
         <v-toolbar-title>資産管理ツール</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items>
+        <v-toolbar-items v-if="$store.state.loginUser">
           <v-btn @click="logout">ログアウト</v-btn>
         </v-toolbar-items>
       </v-toolbar>

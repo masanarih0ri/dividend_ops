@@ -30,6 +30,10 @@
 
 <script>
 export default {
+  created() {
+    // データをストアに取得しにいく
+    this.stocks = this.$store.state.stocks;
+  },
   data() {
     return {
       headers: [
@@ -39,22 +43,7 @@ export default {
         { text: '現在値', value: 'currentStockPrice' },
         { text: '損益', value: 'profitAndLoss' },
       ],
-      stocks: [
-        {
-          stockName: 'KDDI',
-          getStockPrice: '2555',
-          stockCount: '100',
-          currentStockPrice: '3087',
-          profitAndLoss: '53200',
-        },
-        {
-          stockName: 'オリックス',
-          getStockPrice: '1692',
-          stockCount: '300',
-          currentStockPrice: '1249.5',
-          profitAndLoss: '-132750',
-        },
-      ],
+      stocks: [],
     };
   },
 };

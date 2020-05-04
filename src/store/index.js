@@ -6,11 +6,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     drawer: false,
+    stocks: [],
   },
   mutations: {
     // mutationsのメソッドには自動でstateが渡ってくる
     toggleSideNav(state) {
       state.drawer = !state.drawer;
+    },
+    addStocksData(state, stocks) {
+      state.stocks.push(stocks);
     },
   },
   actions: {
@@ -19,6 +23,9 @@ export default new Vuex.Store({
     toggleSideNav({ commit }) {
       // このcommitメソッドはmutationsのメソッドを呼び出すために使われる。
       commit('toggleSideNav');
+    },
+    addStocksData({ commit }, stocks) {
+      commit('addStocksData', stocks);
     },
   },
   modules: {},

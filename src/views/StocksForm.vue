@@ -33,7 +33,7 @@
                 <v-btn @click="$router.push({ name: 'Stocks' })"
                   >キャンセル</v-btn
                 >
-                <v-btn color="info" class="ml-2">保存</v-btn>
+                <v-btn color="info" class="ml-2" @click="submit">保存</v-btn>
               </div>
             </v-form>
           </v-card-text>
@@ -44,11 +44,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
       stocks: {},
     };
+  },
+  methods: {
+    submit() {
+      this.addStocksData(this.stocks);
+      this.$router.push({ name: 'Stocks' });
+      this.stocks = {};
+    },
+    ...mapActions(['addStocksData']),
   },
 };
 </script>

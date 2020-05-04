@@ -17,6 +17,7 @@
 <script>
 import { mapActions } from 'vuex';
 import SideNav from './components/Sidenav.vue';
+import firebase from 'firebase';
 
 export default {
   name: 'App',
@@ -25,11 +26,21 @@ export default {
     SideNav,
   },
 
+  created() {
+    // onAuthStateChangedは引数に認証の状態が変わった時に呼び出されるコールバック関数を受け取る。ログインした場合はコールバック関数にuserのオブジェクトを渡し、ログアウトしたらnullを渡す
+    firebase.auth().onAuthStateChanged((user) => {
+      // userオブジェクトがある場合はsetLoginUserでuserオブジェクトをセットする
+      if (user) {
+        this.setLoginUser(user);
+      }
+    });
+  },
+
   data: () => ({
     //
   }),
   methods: {
-    ...mapActions(['toggleSideNav']),
+    ...mapActions(['toggleSideNav', 'setLoginUser']),
   },
 };
 </script>

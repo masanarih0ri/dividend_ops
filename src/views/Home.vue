@@ -1,14 +1,25 @@
 <template>
-  <div class="home">
-    <Stocks />
-  </div>
+  <v-container text-center justify-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <h1>資産管理ツール</h1>
+        <p>Googleアカウントをご利用ください</p>
+      </v-flex>
+      <v-flex xs12 mt-5>
+        <v-btn color="info" @click="login">Googleアカウントでログイン</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Home',
+  methods: {
+    ...mapActions(['login']),
+  },
   components: {},
 };
 </script>

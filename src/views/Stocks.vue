@@ -4,6 +4,15 @@
       <v-flex xs12>
         <h1>銘柄一覧</h1>
       </v-flex>
+
+      <v-flex xs12 mt-5 mr-5 text-right>
+        <router-link :to="{ name: 'stocks_edit' }">
+          <v-btn color="info">
+            追加
+          </v-btn>
+        </router-link>
+      </v-flex>
+
       <v-flex xs12 mt-5 justify-center>
         <v-data-table :headers="headers" :items="stocks">
           <template v-slot:items="props">

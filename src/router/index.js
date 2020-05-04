@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Stocks from '../views/Stocks.vue';
+import StocksForm from '../views/StocksForm.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/stocks',
     name: 'Stocks',
     component: Stocks,
+  },
+  {
+    path: '/stocks/:stocks_id?/edit',
+    name: 'stocks_edit',
+    component: StocksForm,
   },
   {
     path: '/about',

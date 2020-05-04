@@ -16,7 +16,12 @@
       <v-divider></v-divider>
 
       <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.link"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -34,7 +39,10 @@
 export default {
   data() {
     return {
-      items: [{ title: '銘柄一覧', icon: 'mdi-menu' }],
+      items: [
+        { title: 'ホーム', icon: 'mdi-menu', link: { name: 'Home' } },
+        { title: '銘柄一覧', icon: 'mdi-menu', link: { name: 'Stocks' } },
+      ],
     };
   },
 };

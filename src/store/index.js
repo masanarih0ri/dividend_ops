@@ -21,14 +21,17 @@ export default new Vuex.Store({
     setLoginUser(state, user) {
       state.loginUser = user;
     },
+    deleteLoginUser(state) {
+      state.loginUser = null;
+    },
   },
   actions: {
-    setLoginUser({ commit }, user) {
-      commit('setLoginUser', user);
-    },
     login() {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(googleAuthProvider);
+    },
+    logout() {
+      firebase.auth().signOut();
     },
     // actionsのメソッドには自動でcontextオブジェクトが渡される。
     // 下の書き方だとcontext.commitメソッドだけを受け取る事になる。
@@ -38,6 +41,12 @@ export default new Vuex.Store({
     },
     addStocksData({ commit }, stocks) {
       commit('addStocksData', stocks);
+    },
+    setLoginUser({ commit }, user) {
+      commit('setLoginUser', user);
+    },
+    deleteLoginUser({ commit }) {
+      commit('deleteLoginUser');
     },
   },
   modules: {},

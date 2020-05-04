@@ -5,6 +5,9 @@
         <v-app-bar-nav-icon @click.stop="toggleSideNav"></v-app-bar-nav-icon>
         <v-toolbar-title>資産管理ツール</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-toolbar-items>
+          <v-btn @click="logout">ログアウト</v-btn>
+        </v-toolbar-items>
       </v-toolbar>
     </v-card>
     <SideNav />
@@ -32,6 +35,8 @@ export default {
       // userオブジェクトがある場合はsetLoginUserでuserオブジェクトをセットする
       if (user) {
         this.setLoginUser(user);
+      } else {
+        this.deleteLoginUser();
       }
     });
   },
@@ -40,7 +45,12 @@ export default {
     //
   }),
   methods: {
-    ...mapActions(['toggleSideNav', 'setLoginUser']),
+    ...mapActions([
+      'toggleSideNav',
+      'setLoginUser',
+      'logout',
+      'deleteLoginUser',
+    ]),
   },
 };
 </script>

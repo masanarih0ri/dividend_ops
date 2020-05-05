@@ -26,6 +26,16 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    fetchStocks({ getters, commit }) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/stocks`)
+        .get()
+        .then((snapshot) => {
+          // ここでデータを受け取り、stocksに追加している
+          snapshot.forEach((doc) => commit('addStocksData', doc.data()));
+        });
+    },
     login() {
       const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(googleAuthProvider);

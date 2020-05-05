@@ -38,6 +38,7 @@ export default {
       // userオブジェクトがある場合はsetLoginUserでuserオブジェクトをセットする
       if (user) {
         this.setLoginUser(user);
+        this.fetchStocks();
         if (this.$router.currentRoute.name === 'Home') {
           this.$router.push({ name: 'Stocks' });
         }
@@ -57,6 +58,7 @@ export default {
       'setLoginUser',
       'logout',
       'deleteLoginUser',
+      'fetchStocks',
     ]),
   },
 };

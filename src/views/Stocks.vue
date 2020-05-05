@@ -15,23 +15,12 @@
 
       <v-flex xs12 mt-5 justify-center>
         <v-data-table :headers="headers" :items="stocks">
-          <template v-slot:items="props">
-            <td class="text-xs-left">{{ props.item.stockName }}</td>
-            <td class="text-xs-left">{{ props.item.getStockPrice }}</td>
-            <td class="text-xs-left">{{ props.item.stockCount }}</td>
-            <td class="text-xs-left">{{ props.item.currentStockPrice }}</td>
-            <td class="text-xs-left">{{ props.item.profitAndLoss }}</td>
-            <td class="text-xs-left">
-              <span
-                ><router-link
-                  :to="{
-                    name: 'stocks_edit',
-                    params: { stocks_id: props.item.id },
-                  }"
-                  ><v-icon>fas fa-edit</v-icon></router-link
-                ></span
-              >
-            </td>
+          <template v-slot:item.action="{ item }">
+            <router-link
+              :to="{ name: 'stocks_edit', params: { stocks_id: item.id } }"
+            >
+              <v-icon small class="mr-2">mdi-pencil</v-icon>
+            </router-link>
           </template>
         </v-data-table>
       </v-flex>
@@ -53,7 +42,7 @@ export default {
         { text: '株数', value: 'stockCount' },
         { text: '現在値', value: 'currentStockPrice' },
         { text: '損益', value: 'profitAndLoss' },
-        { text: '操作', sortable: false },
+        { text: '編集', value: 'action', sortable: false },
       ],
       stocks: [],
     };

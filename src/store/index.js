@@ -11,11 +11,13 @@ export default new Vuex.Store({
     stocks: [],
   },
   mutations: {
+    // mutationsの役割はデータの更新
     // mutationsのメソッドには自動でstateが渡ってくる
     toggleSideNav(state) {
       state.drawer = !state.drawer;
     },
-    addStocksData(state, stocks) {
+    addStocksData(state, { id, stocks }) {
+      stocks.id = id;
       state.stocks.push(stocks);
     },
     setLoginUser(state, user) {
@@ -33,7 +35,9 @@ export default new Vuex.Store({
         .get()
         .then((snapshot) => {
           // ここでデータを受け取り、stocksに追加している
-          snapshot.forEach((doc) => commit('addStocksData', doc.data()));
+          snapshot.forEach((doc) =>
+            commit('addStocksData', { id: doc.id, stocks: doc.data() })
+          );
         });
     },
     login() {
@@ -51,12 +55,15 @@ export default new Vuex.Store({
     },
     addStocksData({ commit, getters }, stocks) {
       if (getters.uid) {
+        // addメソッドの処理結果として自動作成されたIDを受け取るとこができるので、mutationsに渡すようにする
         firebase
           .firestore()
           .collection(`users/${getters.uid}/stocks`)
-          .add(stocks);
+          .add(stocks)
+          .then((doc) => {
+            commit('addStocksData', { id: doc.id, stocks });
+          });
       }
-      commit('addStocksData', stocks);
     },
     setLoginUser({ commit }, user) {
       commit('setLoginUser', user);

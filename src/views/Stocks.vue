@@ -21,6 +21,17 @@
             <td class="text-xs-left">{{ props.item.stockCount }}</td>
             <td class="text-xs-left">{{ props.item.currentStockPrice }}</td>
             <td class="text-xs-left">{{ props.item.profitAndLoss }}</td>
+            <td class="text-xs-left">
+              <span
+                ><router-link
+                  :to="{
+                    name: 'stocks_edit',
+                    params: { stocks_id: props.item.id },
+                  }"
+                  ><v-icon>fas fa-edit</v-icon></router-link
+                ></span
+              >
+            </td>
           </template>
         </v-data-table>
       </v-flex>
@@ -42,9 +53,16 @@ export default {
         { text: '株数', value: 'stockCount' },
         { text: '現在値', value: 'currentStockPrice' },
         { text: '損益', value: 'profitAndLoss' },
+        { text: '操作', sortable: false },
       ],
       stocks: [],
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+</style>

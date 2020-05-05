@@ -39,7 +39,6 @@ export default {
   data() {
     return {
       items: [
-        { title: 'ホーム', icon: 'mdi-menu', link: { name: 'Home' } },
         { title: '銘柄一覧', icon: 'mdi-menu', link: { name: 'Stocks' } },
       ],
     };

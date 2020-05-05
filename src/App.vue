@@ -2,7 +2,10 @@
   <v-app>
     <v-card color="grey lighten-4" flat tile>
       <v-toolbar>
-        <v-app-bar-nav-icon @click.stop="toggleSideNav"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon
+          @click.stop="toggleSideNav"
+          v-show="$store.state.loginUser"
+        ></v-app-bar-nav-icon>
         <v-toolbar-title>資産管理ツール</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items v-if="$store.state.loginUser">
@@ -35,8 +38,12 @@ export default {
       // userオブジェクトがある場合はsetLoginUserでuserオブジェクトをセットする
       if (user) {
         this.setLoginUser(user);
+        if (this.$router.currentRoute.name === 'Home') {
+          this.$router.push({ name: 'Stocks' });
+        }
       } else {
         this.deleteLoginUser();
+        this.$router.push({ name: 'Home' });
       }
     });
   },

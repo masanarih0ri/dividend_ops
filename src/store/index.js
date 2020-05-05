@@ -39,7 +39,13 @@ export default new Vuex.Store({
       // このcommitメソッドはmutationsのメソッドを呼び出すために使われる。
       commit('toggleSideNav');
     },
-    addStocksData({ commit }, stocks) {
+    addStocksData({ commit, getters }, stocks) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/stocks`)
+          .add(stocks);
+      }
       commit('addStocksData', stocks);
     },
     setLoginUser({ commit }, user) {
@@ -53,6 +59,7 @@ export default new Vuex.Store({
     // gettersにはstateが自動的に渡される
     userName: (state) => (state.loginUser ? state.loginUser.displayName : ''),
     photoURL: (state) => (state.loginUser ? state.loginUser.photoURL : ''),
+    uid: (state) => (state.loginUser ? state.loginUser.uid : null),
   },
   modules: {},
 });

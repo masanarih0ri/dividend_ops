@@ -16,6 +16,12 @@ export default new Vuex.Store({
     toggleSideNav(state) {
       state.drawer = !state.drawer;
     },
+    setLoginUser(state, user) {
+      state.loginUser = user;
+    },
+    deleteLoginUser(state) {
+      state.loginUser = null;
+    },
     addStocksData(state, { id, stocks }) {
       stocks.id = id;
       state.stocks.push(stocks);
@@ -25,11 +31,10 @@ export default new Vuex.Store({
       // findIndexで引っ張ってきたindexの配列にデータをいれる
       state.stocks[stocksIndex] = stocks;
     },
-    setLoginUser(state, user) {
-      state.loginUser = user;
-    },
-    deleteLoginUser(state) {
-      state.loginUser = null;
+    deleteStocksData(state, { id }) {
+      const stocksIndex = state.stocks.findIndex((stock) => stock.id === id);
+      // findIndexで引っ張ってきたindexの配列にデータをいれる
+      state.stocks.splice(stocksIndex, 1);
     },
   },
   actions: {
@@ -58,6 +63,12 @@ export default new Vuex.Store({
       // このcommitメソッドはmutationsのメソッドを呼び出すために使われる。
       commit('toggleSideNav');
     },
+    setLoginUser({ commit }, user) {
+      commit('setLoginUser', user);
+    },
+    deleteLoginUser({ commit }) {
+      commit('deleteLoginUser');
+    },
     addStocksData({ commit, getters }, stocks) {
       if (getters.uid) {
         // addメソッドの処理結果として自動作成されたIDを受け取るとこができるので、mutationsに渡すようにする
@@ -70,12 +81,6 @@ export default new Vuex.Store({
           });
       }
     },
-    setLoginUser({ commit }, user) {
-      commit('setLoginUser', user);
-    },
-    deleteLoginUser({ commit }) {
-      commit('deleteLoginUser');
-    },
     updateStocksData({ getters, commit }, { id, stocks }) {
       if (getters.uid) {
         firebase
@@ -83,7 +88,21 @@ export default new Vuex.Store({
           .collection(`users/${getters.uid}/stocks`)
           .doc(id)
           .update(stocks)
-          .then(() => [commit('updateStocksData', { id, stocks })]);
+          .then(() => {
+            commit('updateStocksData', { id, stocks });
+          });
+      }
+    },
+    deleteStocksData({ getters, commit }, { id }) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/stocks`)
+          .doc(id)
+          .delete()
+          .then(() => {
+            commit('deleteStocksData', { id });
+          });
       }
     },
   },

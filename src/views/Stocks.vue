@@ -21,6 +21,10 @@
             >
               <v-icon small class="mr-2">mdi-pencil</v-icon>
             </router-link>
+
+            <v-icon small class="mr-2" @click="deleteConfirm(item.id)"
+              >mdi-delete</v-icon
+            >
           </template>
         </v-data-table>
       </v-flex>
@@ -29,6 +33,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   created() {
     // データをストアに取得しにいく
@@ -46,6 +51,14 @@ export default {
       ],
       stocks: [],
     };
+  },
+  methods: {
+    deleteConfirm(id) {
+      if (confirm('本当に削除しますか？')) {
+        this.deleteStocksData({ id });
+      }
+    },
+    ...mapActions(['deleteStocksData']),
   },
 };
 </script>

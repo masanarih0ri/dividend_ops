@@ -2,7 +2,7 @@
   <v-container text-xs-center>
     <v-layout row wrap justify-center>
       <v-flex xs12 class="text-center">
-        <h1>銘柄を追加</h1>
+        <h1>銘柄を編集</h1>
       </v-flex>
 
       <v-flex xs5 mt-5>

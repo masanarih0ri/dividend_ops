@@ -20,6 +20,11 @@ export default new Vuex.Store({
       stocks.id = id;
       state.stocks.push(stocks);
     },
+    updateStocksData(state, { id, stocks }) {
+      const stocksIndex = state.stocks.findIndex((stock) => stock.id === id);
+      // findIndexで引っ張ってきたindexの配列にデータをいれる
+      state.stocks[stocksIndex] = stocks;
+    },
     setLoginUser(state, user) {
       state.loginUser = user;
     },
@@ -71,12 +76,28 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit('deleteLoginUser');
     },
+    updateStocksData({ getters, commit }, { id, stocks }) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/stocks`)
+          .doc(id)
+          .update(stocks)
+          .then(() => [commit('updateStocksData', { id, stocks })]);
+      }
+    },
   },
   getters: {
     // gettersにはstateが自動的に渡される
     userName: (state) => (state.loginUser ? state.loginUser.displayName : ''),
     photoURL: (state) => (state.loginUser ? state.loginUser.photoURL : ''),
     uid: (state) => (state.loginUser ? state.loginUser.uid : null),
+    // 内側の関数(id) => state.stocks.find((stocks) => stocks.id === id)
+    // これが返ってくる
+    // つまりidを引数にして、stateのstocksからstocksのidと引数のidが同じものを返すということ
+    // getttersを呼び出す時点でidを指定して、idにマッチするものを取得する
+    getStocksById: (state) => (id) =>
+      state.stocks.find((stocks) => stocks.id === id),
   },
   modules: {},
 });

@@ -46,6 +46,19 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
+  created() {
+    if (!this.$route.params.stocks_id) return;
+    // gettersメソッドの呼び出し
+    // 引数にidを渡しstoreで作ったgetStocksByIdを使ってコンポーネントにデータを返す
+    const stocks = this.$store.getters.getStocksById(
+      this.$route.params.stocks_id
+    );
+    if (stocks) {
+      this.stocks = stocks;
+    } else {
+      this.$router.push({ name: 'Stocks' });
+    }
+  },
   data() {
     return {
       stocks: {},
@@ -53,11 +66,18 @@ export default {
   },
   methods: {
     submit() {
-      this.addStocksData(this.stocks);
+      if (this.$route.params.stocks_id) {
+        this.updateStocksData({
+          id: this.$route.params.stocks_id,
+          stocks: this.stocks,
+        });
+      } else {
+        this.addStocksData(this.stocks);
+      }
       this.$router.push({ name: 'Stocks' });
       this.stocks = {};
     },
-    ...mapActions(['addStocksData']),
+    ...mapActions(['addStocksData', 'updateStocksData']),
   },
 };
 </script>

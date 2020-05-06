@@ -14,20 +14,18 @@
                 label="銘柄名"
               ></v-text-field>
               <v-text-field
-                v-model="stocks.getStockPrice"
-                label="取得単価"
+                v-model="stocks.dividendsCount"
+                label="配当回数"
+              ></v-text-field>
+              <v-text-field v-model="stocks.dividendMonths" label="配当月">
+              </v-text-field>
+              <v-text-field
+                v-model="stocks.dividendYield"
+                label="直近配当利回り"
               ></v-text-field>
               <v-text-field
-                v-model="stocks.stockCount"
-                label="株数"
-              ></v-text-field>
-              <v-text-field
-                v-model="stocks.currentStockPrice"
-                label="現在値"
-              ></v-text-field>
-              <v-text-field
-                v-model="stocks.profitAndLoss"
-                label="損益"
+                v-model="stocks.commentForStock"
+                label="コメント"
               ></v-text-field>
               <div class="text-center">
                 <v-btn @click="$router.push({ name: 'Stocks' })"

@@ -43,10 +43,10 @@ export default {
     return {
       headers: [
         { text: '銘柄名', value: 'stockName' },
-        { text: '取得単価', value: 'getStockPrice' },
-        { text: '株数', value: 'stockCount' },
-        { text: '現在値', value: 'currentStockPrice' },
-        { text: '損益', value: 'profitAndLoss' },
+        { text: '配当回数', value: 'dividendsCount' },
+        { text: '配当月', value: 'dividendMonths' },
+        { text: '直近配当利回り', value: 'dividendYield' },
+        { text: 'コメント', value: 'commentForStock' },
         { text: '編集', value: 'action', sortable: false },
       ],
       stocks: [],
